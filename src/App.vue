@@ -11,8 +11,8 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-  ChartOptions,
 } from 'chart.js'
+import type { ChartOptions } from 'chart.js'
 import { Line, Bar, Pie } from 'vue-chartjs'
 
 // Chart.js 전역 등록
@@ -264,12 +264,12 @@ const pieOptions: ChartOptions<'pie'> = {
   cutout: '70%',
   plugins: {
     legend: {
-      position: 'right',
+      position: 'bottom', // ✅ right → bottom으로 변경
       labels: {
         color: axisTextColor,
         font: { size: 11 },
         usePointStyle: true,
-        padding: 12,
+        padding: 8,
       },
     },
     tooltip: {
@@ -295,6 +295,9 @@ const pieOptions: ChartOptions<'pie'> = {
       },
     },
   },
+  layout: {
+    padding: 8, // ✅ 캔버스 주변 여유 공간
+  },
 }
 
 // 3) 이상 점수 히스토그램 (로그 스케일)
@@ -319,7 +322,13 @@ const distributionChartData = computed(() => {
 
   const labels: string[] = []
   for (let i = 0; i < bins.length - 1; i++) {
-    labels.push(`${bins[i].toFixed(1)}–${bins[i + 1].toFixed(1)}`)
+    const start = bins[i]
+    const end = bins[i + 1]
+
+    // TS2532 방어: undefined/null 값은 스킵
+    if (start == null || end == null) continue
+
+    labels.push(`${start.toFixed(1)}–${end.toFixed(1)}`)
   }
 
   return {
@@ -489,7 +498,12 @@ function barWidth(row: SampleRow) {
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <article class="bg-white border border-slate-200 rounded-xl px-5 py-4 h-72">
           <h2 class="text-sm font-semibold mb-2">심각도 분포</h2>
-          <Pie :data="severityChartData" :options="pieOptions" />
+          <div
+              class="h-[calc(100%-1.5rem)] flex items-center justify-center overflow-hidden"
+          >
+            <!-- ✅ 래퍼로 감싸서 영역 안에 고정 -->
+            <Pie :data="severityChartData" :options="pieOptions" />
+          </div>
         </article>
 
         <article class="bg-white border border-slate-200 rounded-xl px-5 py-4 h-72">
