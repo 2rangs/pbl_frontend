@@ -573,20 +573,6 @@ const topDstOptions: ChartOptions<'bar'> = {
         </div>
 
         <div class="flex flex-col items-end gap-2">
-          <div class="flex items-center gap-2 text-[11px]">
-            <span
-                v-if="apiHealthy === true"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200"
-            >
-              ● API 정상
-            </span>
-            <span
-                v-else-if="apiHealthy === false"
-                class="inline-flex items-center px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200"
-            >
-              ● API 오류
-            </span>
-          </div>
           <button
               class="text-xs px-3 py-1 rounded-full border border-slate-300 bg-white hover:bg-slate-50"
               @click="fetchAll"
