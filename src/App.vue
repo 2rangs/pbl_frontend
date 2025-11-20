@@ -565,7 +565,7 @@ const topDstOptions: ChartOptions<'bar'> = {
             네트워크 트래픽 분석 대시보드
           </h1>
           <p class="mt-1 text-xs text-slate-500">
-            로그 기반 LSTM 이상 탐지 결과를 시간·날짜·점수별로 시각화한 관제 화면
+            제작자 : 김이랑 & 최현석
           </p>
           <p v-if="lastUpdated" class="mt-1 text-[11px] text-slate-400">
             마지막 갱신: {{ lastUpdated.toLocaleString() }}
