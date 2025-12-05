@@ -30,7 +30,7 @@ ChartJS.register(
 
 // === API 기본 설정 ===
 const API_BASE =
-    import.meta.env.VITE_API_BASE_URL || 'http://54.180.31.33:8000'
+    import.meta.env.VITE_API_BASE_URL || 'http://52.78.105.134:8000'
 
 // === 타입 정의 ===
 interface OverviewCards {
